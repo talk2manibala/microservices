@@ -22,7 +22,7 @@ public class UserService {
         users.add(rafael);
     }
 
-    public List<User> getAllEmplmoyees() {
+    public List<User> getAllUsers() {
         return users;
     }
 
@@ -44,9 +44,20 @@ public class UserService {
         return newUser;
     }
 
+    // Delete user :  user/1
+    public User deleteUser(int id) {
+        User user = getUser(id);
+        if (user==null) throw new UserNotFoundException("User with id "+id+"not found");
+        users.remove(user);
+        return user;
+    }
 
-    // delete a user
-
-    // update a empmloyee
-
+    // update a user
+    public User updateUser(int id, User userWithChanges) {
+        User actualUser = getUser(id);
+        if (userWithChanges==null || actualUser==null) throw new UserNotFoundException("User with id "+id+"not found");
+        actualUser.setName(userWithChanges.getName());
+        actualUser.setDob(userWithChanges.getDob());
+        return actualUser;
+    }
 }
