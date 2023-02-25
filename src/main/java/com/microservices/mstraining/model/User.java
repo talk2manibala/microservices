@@ -1,10 +1,8 @@
 package com.microservices.mstraining.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 @Component
 @Scope("prototype") // This annotation will help to create multiple objects instead of following singleton
-public class Employee {
+public class User {
 
     private int id;
     private String name;
@@ -25,8 +23,8 @@ public class Employee {
     private String firstName;*/
     private LocalDate dob;
 
-    public Employee() {
-        System.out.println("Employee Object created");
+    public User() {
+        System.out.println("User Object created");
     }
 
 }

@@ -1,19 +1,19 @@
 package com.microservices.mstraining;
 
-import com.microservices.mstraining.model.Employee;
+import com.microservices.mstraining.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class TrainingApplication {
+public class UserApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(TrainingApplication.class, args);
+		ConfigurableApplicationContext run = SpringApplication.run(UserApplication.class, args);
 
 		// Spring Servlet Container
-		Employee empBean1 = run.getBean(Employee.class);
-		Employee empBean2 = run.getBean(Employee.class);
+		User userBean1 = run.getBean(User.class);
+		User userBean2 = run.getBean(User.class);
 	}
 
 }
