@@ -10,25 +10,25 @@ import java.util.List;
 @Service
 public class UserService {
 
-    public static ArrayList<User> emplmoyeeList = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
     public static int id = 0;
 
     static {
         User roger = User.builder().id(++id).name("Roger").dob(LocalDate.now().minusYears(20)).build();
         User rafa = User.builder().id(++id).name("Rafa").dob(LocalDate.now().minusYears(20)).build();
         User rafael = User.builder().id(++id).name("Rafael").dob(LocalDate.now().minusYears(20)).build();
-        emplmoyeeList.add(roger);
-        emplmoyeeList.add(rafa);
-        emplmoyeeList.add(rafael);
+        users.add(roger);
+        users.add(rafa);
+        users.add(rafael);
     }
 
     public List<User> getAllEmplmoyees() {
-        return emplmoyeeList;
+        return users;
     }
 
     // get user :  user/1
     public User getUser(int id) {
-        User user = emplmoyeeList.stream().filter(x->x.getId()==id).findFirst().orElse(null);
+        User user = users.stream().filter(x->x.getId()==id).findFirst().orElse(null);
         if (user==null) throw new UserNotFoundException("User with id "+id+"not found");
         return user;
     }
@@ -37,8 +37,10 @@ public class UserService {
     // requirements : request body, context url, headers
 
     public User createUser(User user) {
-        User newUser = User.builder().id(++id).name(user.getName()).dob(user.getDob()).build();
-        emplmoyeeList.add(newUser);
+        User newUser = User.builder().id(users.size()+1).name(user.getName()).dob(user.getDob()).build();
+        // newUser.setId(++id); // Add id like this also work
+        // newUser.setId(users.size()+1); // This will also work
+        users.add(newUser);
         return newUser;
     }
 
