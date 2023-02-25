@@ -1,6 +1,6 @@
 package com.microservices.mstraining.service;
 
-import com.microservices.mstraining.controller.Employee;
+import com.microservices.mstraining.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,11 +26,25 @@ public class EmployeeService {
         return emplmoyeeList;
     }
 
-    // employee/1
+    // get employee :  employee/1
     public Employee getEmployee(int id) {
         Employee employee = emplmoyeeList.stream().filter(x->x.getId()==id).findFirst().orElse(null);
         if (employee==null) throw new EmployeeNotFoundException("Employee with id "+id+"not found");
         return employee;
     }
+
+    // create a new employee
+    // requirements : request body, context url, headers
+
+    public Employee createEmployee(Employee employee) {
+        Employee newEmployee = Employee.builder().id(++id).name(employee.getName()).dob(employee.getDob()).build();
+        emplmoyeeList.add(newEmployee);
+        return newEmployee;
+    }
+
+
+    // delete a employee
+
+    // update a empmloyee
 
 }

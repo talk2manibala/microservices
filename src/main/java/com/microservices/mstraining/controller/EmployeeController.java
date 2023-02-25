@@ -1,15 +1,15 @@
 package com.microservices.mstraining.controller;
 
+import com.microservices.mstraining.model.Employee;
 import com.microservices.mstraining.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class GreetMessageController {
+@RequestMapping("/api")
+public class EmployeeController {
 
 
     @Autowired
@@ -25,10 +25,17 @@ public class GreetMessageController {
         return employeeService.getAllEmplmoyees();
     }
 
-    // To get specific user
+    // To get specific employee
     @GetMapping("/employee/{id}")
     public Employee getSpecificEmployee(@PathVariable int id) {
         return employeeService.getEmployee(id);
+    }
+
+    // To create a employee
+    @PostMapping(path="/employee")
+    public Employee createEmployee(@RequestBody Employee employee) {
+        Employee newEmployee =  employeeService.createEmployee(employee);
+        return newEmployee;
     }
 
 }
