@@ -3,8 +3,13 @@ package com.microservices.mstraining.controller;
 import com.microservices.mstraining.model.User;
 import com.microservices.mstraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,10 +36,16 @@ public class UserController {
     }
 
     // To create a user
-    @PostMapping(path="/user")
-    public User createUser(@RequestBody User user) {
+    @PostMapping(path="/user", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         User newUser =  userService.createUser(user);
-        return newUser;
+        if (newUser==null) {
+            return ResponseEntity.internalServerError().body(newUser);
+        }
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId()).toUri();
+        return ResponseEntity.created(uri).body(newUser);
+        // return new ResponseEntity<User>(newUser, HttpStatusCode.valueOf(201));
+        // return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
 }
