@@ -45,19 +45,22 @@ public class UserService {
     }
 
     // Delete user :  user/1
-    public User deleteUser(int id) {
-        User user = getUser(id);
-        if (user==null) throw new UserNotFoundException("User with id "+id+"not found");
-        users.remove(user);
-        return user;
+    public boolean deleteUser(int id) {
+        /*User user = getUser(id);
+        if (user==null) throw new UserNotFoundException("User with id "+id+"not found");*/
+        boolean isTrue = users.removeIf(x->x.getId()==id);
+        return isTrue;
+//        return user;
     }
 
     // update a user
     public User updateUser(int id, User userWithChanges) {
-        User actualUser = getUser(id);
-        if (userWithChanges==null || actualUser==null) throw new UserNotFoundException("User with id "+id+"not found");
-        actualUser.setName(userWithChanges.getName());
-        actualUser.setDob(userWithChanges.getDob());
+        User actualUser = users.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+        if (userWithChanges==null || actualUser==null)
+            throw new UserNotFoundException("User with id "+id+"not found");
+        actualUser.setName ( userWithChanges.getName() );
+        actualUser.setDob ( userWithChanges.getDob() );
         return actualUser;
     }
+
 }
