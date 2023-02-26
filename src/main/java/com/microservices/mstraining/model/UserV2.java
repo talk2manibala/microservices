@@ -18,9 +18,8 @@ public class UserV2 {
 
     private int id;
     private Name name;
-    /*@JsonProperty("first_name")
-    private String firstName;*//*@JsonProperty("first_name")
-    private String firstName;*/
+    //@JsonProperty("first_name")
+    //private String firstName;
     private Address address;
     private LocalDate dob;
     private String respMsg;
@@ -31,7 +30,6 @@ public class UserV2 {
 
     @Data
     @AllArgsConstructor
-//@NoArgsConstructor
     @Builder(toBuilder = true)
     @Component
     @Scope("prototype") // This annotation will help to create multiple objects instead of following singleton
@@ -39,9 +37,9 @@ public class UserV2 {
         private String firstName;
         private String lastName;
     }
+
     @Data
     @AllArgsConstructor
-//@NoArgsConstructor
     @Builder(toBuilder = true)
     @Component
     @Scope("prototype")

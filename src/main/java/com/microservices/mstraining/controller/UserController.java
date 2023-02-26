@@ -38,7 +38,7 @@ public class UserController {
     // To create a user
     @PostMapping(path="/user", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        if (user.getName()==null || user.getDob()==null || user.getDob().toString().isEmpty()) {
+        if (user.getName()==null || user.getName().isEmpty() || user.getDob()==null || user.getDob().toString().isEmpty()) {
             user.setRespMsg("Name and Date of birth is mandatory");
             return ResponseEntity.unprocessableEntity().body(user);
         }
@@ -46,7 +46,7 @@ public class UserController {
         if (newUser==null) {
             return ResponseEntity.internalServerError().body(newUser);
         }
-        user.setRespMsg("Success");
+        newUser.setRespMsg("Success");
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId()).toUri();
         return ResponseEntity.created(uri).body(newUser);
         // return new ResponseEntity<User>(newUser, HttpStatusCode.valueOf(201));
