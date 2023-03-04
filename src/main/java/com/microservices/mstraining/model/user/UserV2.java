@@ -1,4 +1,4 @@
-package com.microservices.mstraining.model;
+package com.microservices.mstraining.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

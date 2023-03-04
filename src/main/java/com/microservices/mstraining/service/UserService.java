@@ -1,6 +1,7 @@
 package com.microservices.mstraining.service;
 
-import com.microservices.mstraining.model.User;
+import com.microservices.mstraining.model.user.User;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -62,5 +63,34 @@ public class UserService {
         actualUser.setDob ( userWithChanges.getDob() );
         return actualUser;
     }
+
+    //Partial Update of the user
+    public User updateUserPartially(int userId, User requestUser)
+    {
+        int counter = 0;
+        for (User user:users)
+        {
+            if(user.getId()==userId)
+            {
+                String name = requestUser.getName()!=null ? requestUser.getName() : user.getName();
+                LocalDate dob = requestUser.getDob()!=null ? requestUser.getDob() : user.getDob();
+                User patchedUser = User.builder().id(userId).name(name).dob(dob).build();
+                users.set(counter,patchedUser);
+                return patchedUser;
+            }
+            counter++;
+        }
+        return null;
+    }
+
+    public static User getUserByName(String name){
+        for (User user:users){
+
+            if(user.getName().equals(name))return user;
+        }
+        return null;
+    }
+
+
 
 }
