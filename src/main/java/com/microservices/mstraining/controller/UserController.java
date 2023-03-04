@@ -96,8 +96,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).location(uri).body(patchUser);
     }
 
-
-
     // Getting a specific user using query param
     @GetMapping(path="/getuserqueryparam",
             produces = "application/json")
@@ -106,7 +104,6 @@ public class UserController {
         if(user==null) throw new UserNotFoundException("user with name "+ name+" not found");
         return ResponseEntity.ok().body(user);
     }
-
 
     // Getting a specific user using query param
     @GetMapping(path="/getuserqueryparamId",
