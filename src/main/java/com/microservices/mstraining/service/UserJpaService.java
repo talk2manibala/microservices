@@ -51,20 +51,17 @@ public class UserJpaService {
 
     // Delete user :  user/1
     public void deleteUser(int id) {
-        /*boolean isTrue = users.removeIf(x->x.getId()==id);
-        return isTrue;*/
         userJpaRepository.deleteById(id);
     }
 
     // update a user
     public User updateUser(int id, User userWithChanges) {
-        return userJpaRepository.save(userWithChanges);
-        /*User actualUser = users.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+        User actualUser = userJpaRepository.findById(id).get();
         if (userWithChanges==null || actualUser==null)
             throw new UserNotFoundException("User with id "+id+"not found");
         actualUser.setName ( userWithChanges.getName() );
         actualUser.setDob ( userWithChanges.getDob() );
-        return actualUser;*/
+        return actualUser;
     }
 
     //Partial Update of the user
