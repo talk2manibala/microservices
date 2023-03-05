@@ -2,8 +2,7 @@ package com.microservices.mstraining.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +22,7 @@ public class User {
     //@NotNull(message="Id can't be null")
     // @JsonIgnore
     @Id
+    @GeneratedValue //(strategy= GenerationType.SEQUENCE)
     private Integer id;
     @NotBlank
     @NotEmpty
