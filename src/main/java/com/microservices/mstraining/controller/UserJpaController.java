@@ -4,9 +4,11 @@ import com.microservices.mstraining.model.user.User;
 import com.microservices.mstraining.service.UserJpaService;
 import com.microservices.mstraining.service.UserNotFoundException;
 import com.microservices.mstraining.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +32,14 @@ public class UserJpaController {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Bean
+    public UserJpaService getUserRepoObject() {
+        return new UserJpaService();
+    }
 
     @GetMapping(path = "/users")
     public ResponseEntity<List<User>> getUsers() {
