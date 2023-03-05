@@ -2,6 +2,8 @@ package com.microservices.mstraining.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +18,11 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 @Component
 @Scope("prototype") // This annotation will help to create multiple objects instead of following singleton
+@Entity(name="user_details")
 public class User {
     //@NotNull(message="Id can't be null")
-    @JsonIgnore
+    // @JsonIgnore
+    @Id
     private Integer id;
     @NotBlank
     @NotEmpty
