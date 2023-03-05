@@ -6,3 +6,7 @@ logging:
 spring:
   profiles:
     active: dev
+  datasource
+      url=dbc:h2:mem:stage-db
+      username:admin
+      password:root
