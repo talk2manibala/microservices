@@ -36,11 +36,11 @@ public class UserJpaController {
     @Autowired
     private HttpServletRequest request;
 
-    @Bean
+  /*  @Bean
     public UserJpaService getUserRepoObject() {
         return new UserJpaService();
     }
-
+*/
     @GetMapping(path = "/users")
     public ResponseEntity<List<User>> getUsers() {
         List<User> users =  userService.getAllUsers();
