@@ -27,7 +27,7 @@ public class User {
     @NotBlank
     @NotEmpty
     //@JsonProperty("user_name")
-    @NotNull(message="Name is required ba")
+    @NotNull(message="Name is required")
     @Size(min=2, max=10, message="Name should between 2 and 10 in size")
     private String name;
     @Past

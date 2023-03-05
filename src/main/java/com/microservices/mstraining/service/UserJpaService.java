@@ -61,6 +61,7 @@ public class UserJpaService {
             throw new UserNotFoundException("User with id "+id+"not found");
         actualUser.setName ( userWithChanges.getName() );
         actualUser.setDob ( userWithChanges.getDob() );
+        userJpaRepository.save(actualUser);
         return actualUser;
     }
 
@@ -85,7 +86,6 @@ public class UserJpaService {
 
     public static User getUserByName(String name){
         for (User user:users){
-
             if(user.getName().equals(name))return user;
         }
         return null;
