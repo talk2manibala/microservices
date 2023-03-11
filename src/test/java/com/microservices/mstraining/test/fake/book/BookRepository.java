@@ -1,5 +1,6 @@
 package com.microservices.mstraining.test.fake.book;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookRepository {
@@ -7,4 +8,6 @@ public interface BookRepository {
     public List<Book> findAll();
     // save the book object into DB
     public void save(Book book);
+
+    public List<Book> findOlderBooks(LocalDate date);
 }
