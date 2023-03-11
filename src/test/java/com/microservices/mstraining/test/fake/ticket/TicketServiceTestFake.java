@@ -26,7 +26,6 @@ public class TicketServiceTestFake {
         // assert
         Assertions.assertEquals(2, allTickets.size());
         Assertions.assertEquals("bus-2", allTickets.get(1).getBus());
-
     }
 
 }
