@@ -16,6 +16,8 @@ public class BookService {
     }
 
     public void addBook(Book book) {
+        // save the book only if it's price >= 50;
+        if (book.getPrice()<50) return;
         bookRepository.save(book);
     }
 
