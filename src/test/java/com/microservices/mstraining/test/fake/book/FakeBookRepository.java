@@ -1,4 +1,4 @@
-package com.microservices.mstraining.test.fake;
+package com.microservices.mstraining.test.fake.book;
 
 import java.util.ArrayList;
 import java.util.List;
