@@ -8,10 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -20,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // Either use this annotation or use the setup method with BeforeEach; Both same
 public class UserJPAServiceTests {
@@ -68,6 +65,38 @@ public class UserJPAServiceTests {
         // assert
         Assertions.assertEquals("Mani", user_1.getName());
         Assertions.assertEquals("Bala", user_2.getName());
+        Assertions.assertEquals(2, user_2.getId());
+
+        InOrder inorder = Mockito.inOrder(userJpaRepository);
+        inorder.verify(userJpaRepository);
+
+    }
+
+    @Test
+    public void should_delete_user() {
+        userJpaService.deleteUser(1);
+        verify(userJpaRepository, times(1)).deleteById(1);
+        verify(userJpaRepository, atLeastOnce()).deleteById(anyInt());
+    }
+
+    @Test
+    public void update_user() {
+        // find user
+        User user1 = User.builder().id(1).name("Mani").dob(LocalDate.now().minusYears(20)).build();
+        User user2 = User.builder().id(2).name("Bala").dob(LocalDate.now().minusYears(20)).build();
+        when(userJpaRepository.findById(anyInt())).thenReturn(Optional.of(user1));
+
+        // manipulate the attributes
+        User updatedUser = userJpaService.updateUser(1, user2);
+
+        // Assertion
+        Assertions.assertEquals("Bala", updatedUser.getName());
+        System.out.println("User1 Name : "+user1.getName());
+        System.out.println("User2 Name : "+user2.getName());
+
+        InOrder inOrder = Mockito.inOrder(userJpaRepository);
+        inOrder.verify(userJpaRepository).findById(1);
+        inOrder.verify(userJpaRepository).save(user1);
 
     }
 
