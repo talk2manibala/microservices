@@ -3,6 +3,7 @@ package com.microservices.mstraining.test;
 import com.microservices.mstraining.model.user.User;
 import com.microservices.mstraining.repository.UserJpaRepository;
 import com.microservices.mstraining.service.UserJpaService;
+import com.microservices.mstraining.service.UserNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,6 +75,8 @@ public class UserJPAServiceTests {
 
     @Test
     public void should_delete_user() {
+        User user1 = User.builder().id(1).name("Mani").dob(LocalDate.now().minusYears(20)).build();
+        userJpaService.createUser(user1);
         userJpaService.deleteUser(1);
         verify(userJpaRepository, times(1)).deleteById(1);
         verify(userJpaRepository, atLeastOnce()).deleteById(anyInt());
@@ -98,6 +101,12 @@ public class UserJPAServiceTests {
         inOrder.verify(userJpaRepository).findById(1);
         inOrder.verify(userJpaRepository).save(user1);
 
+    }
+
+    @Test
+    public void should_throw_an_exception() {
+        when(userJpaRepository.findById(anyInt())).thenThrow(UserNotFoundException.class);
+        Assertions.assertThrows(UserNotFoundException.class, ()->userJpaService.getUser(1));
     }
 
 }

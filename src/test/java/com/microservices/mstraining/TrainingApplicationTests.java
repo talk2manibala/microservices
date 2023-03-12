@@ -10,4 +10,9 @@ class TrainingApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public void getAllUsers() {
+
+	}
+
 }

@@ -38,6 +38,8 @@ public class UserJpaService {
         if (byId.isEmpty()) return null;
         return byId.get();*/
         User byId = userJpaRepository.findById(userId).get();
+        if (byId==null)
+            throw new UserNotFoundException("");
         return byId;
     }
 
